@@ -1,4 +1,5 @@
 const Hapi = require('hapi');
+const cannon = require('./src/mailCannon');
 
 function runServer(){
   const server = new Hapi.Server();
@@ -28,6 +29,7 @@ function runServer(){
     method: 'POST',
     path: '/mailto',
     handler: (request, reply) => {
+      cannon(request.payload);
       console.log('POST, with: ', request.payload);
       reply({status: 'success'});
     }
