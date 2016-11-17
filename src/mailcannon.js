@@ -40,7 +40,7 @@ function sendMail(body, target, name){
     function(err) {
       if(err) console.log(err);
       else console.log('Mail sending success');
-      return err ? err : true;
+      return err ? err : 'Success';
     });
 }
 

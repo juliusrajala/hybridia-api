@@ -5,6 +5,9 @@ function runServer(){
   const server = new Hapi.Server();
 
   server.connection({
+    routes: {
+      cors: true
+    },
     port: process.env.PORT || 8080
   });
 
