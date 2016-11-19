@@ -32,9 +32,12 @@ function runServer(){
     method: 'POST',
     path: '/mailto',
     handler: (request, reply) => {
-      cannon(request.payload);
-      console.log('POST, with: ', request.payload);
-      reply({status: 'success'});
+      Promise.resolve(
+        cannon(request.payload)
+      ).then(response => {
+        console.log(response)
+        reply({status: response});
+      });
     }
   });
 

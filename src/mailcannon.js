@@ -5,12 +5,7 @@ const mailgun = new Mailgun(mgKey);
 const sender = 'postmaster@hybridia.fi';
 
 function mailCannon(data){
-  try {
-    console.log('Cannon received data', data);
-    sendMail(getMailBody(data), data.email, data.name);
-  } catch(e) {
-    console.log('Error:', e);
-  }
+  return Promise.resolve(sendMail(getMailBody(data), data.email, data.name)); 
 };
 
 const getMailBody = (data) =>
@@ -30,18 +25,22 @@ const getMailBody = (data) =>
   Muuta: ${data.other !== false && data.other}`;
 
 function sendMail(body, target, name){
+  let response = true;
   mailgun.sendText(
     sender, // Sender
     [target, 'juliusrajala@gmail.com'], // Recipients
     `Hybridian kurssi-ilmoittautuminen - ${name}`, //Subject
     body, // Body
     'postmaster@hybridia.fi',
-    {},
-    function(err) {
-      if(err) console.log(err);
+    {}, (err) => {
+      if(err){
+        console.log('Sending mail failed', err);
+        response = false;
+      } 
       else console.log('Mail sending success');
-      return err ? err : 'Success';
+      return !err;
     });
+  return response;
 }
 
 module.exports = mailCannon;
