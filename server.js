@@ -1,5 +1,5 @@
 const Hapi = require('hapi');
-const cannon = require('./src/mailCannon');
+const cannon = require('src/mailCannon');
 
 function runServer(){
   const server = new Hapi.Server();
