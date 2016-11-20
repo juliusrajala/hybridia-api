@@ -28,7 +28,7 @@ function sendMail(body, target, name){
   let response = true;
   mailgun.sendText(
     sender, // Sender
-    [target, 'support@hybridia.fi'], // Recipients
+    [target, 'hallinto@hybridia.fi'], // Recipients
     `Hybridian kurssi-ilmoittautuminen - ${name}`, //Subject
     body, // Body
     'postmaster@hybridia.fi',
